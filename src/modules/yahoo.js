@@ -117,21 +117,23 @@
 
 	function formatFriend(contact) {
 		contact.id = null;
-		contact.fields.forEach(function(field) {
-			if (field.type === 'email') {
-				contact.email = field.value;
-			}
+		if (!!contact.fields && contact.fields.length > 0) {
+			contact.fields.forEach(function(field) {
+				if (field.type === 'email') {
+					contact.email = field.value;
+				}
 
-			if (field.type === 'name') {
-				contact.first_name = field.value.givenName;
-				contact.last_name = field.value.familyName;
-				contact.name = field.value.givenName + ' ' + field.value.familyName;
-			}
+				if (field.type === 'name') {
+					contact.first_name = field.value.givenName;
+					contact.last_name = field.value.familyName;
+					contact.name = field.value.givenName + ' ' + field.value.familyName;
+				}
 
-			if (field.type === 'yahooid') {
-				contact.id = field.value;
-			}
-		});
+				if (field.type === 'yahooid') {
+					contact.id = field.value;
+				}
+			});
+		}
 	}
 
 	function paging(res, headers, request) {
